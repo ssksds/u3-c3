@@ -33,6 +33,7 @@ function append(data) {
 
     let price = document.createElement("h3");
     price.innerText = el.price;
+    price.setAttribute("id","price")
 
     let button = document.createElement("button");
     button.innerText = "buy";
@@ -49,17 +50,19 @@ function append(data) {
 
 
 function addtoCart(el) {
-    final=wallet.value
-    if(final<el.price){
-        alert("purchase_sucussful")
-    }
-    else{
-        alert("failed")
-    }
-    
-    arr2.push(el);
-    localStorage.setItem("purchase", JSON.stringify(arr2));
-    alert("successful")
+
+  if(Number(user[0].amount) >= Number(el.price)){
+    arr2.push(el)
+    localStorage.setItem('purchase',JSON.stringify(arr2))
+    user[0].amount = Number(user[0].amount) - Number(el.price)
+    localStorage.setItem('user',JSON.stringify(user))
+    let wallet=document.getElementById("wallet_balance")
+   wallet.innerHTML=user[0].amount
+    alert(" purchase successful")    
+}else{
+    alert("Insufficient balance")
+}
+
   
 }
 
